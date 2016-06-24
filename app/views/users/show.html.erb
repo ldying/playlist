@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="six columns">
+		<h4><%=@user.first_name+" "+@user.last_name %>'s Playlist</h4>
+		<hr>
+		<table>
+			<thead>
+				<tr>
+					<th>Artist</th>
+					<th>Title</th>
+					<th>Times Added</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @user.songs.group("id").each do |u| %>
+					<tr>
+						<td><%=u.artist %></td>
+						<td><a href="/songs/<%= u.id %>"><%=u.title %></a></td>
+						<td><%=u.playlists.where(user: @user).count%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>

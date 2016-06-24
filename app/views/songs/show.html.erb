@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="six columns">
+		<h4>People who added <%= @song.artist %> - <%= @song.title %>:</h4>
+		<hr>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Times Added</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @song.users.group("id").each do |u| %>
+					<tr>
+						<td><a href="/users/<%= u.id %>"><%=u.first_name+" "+u.last_name %></a></td>
+						<td><%=u.playlists.where(song: @song).count%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>

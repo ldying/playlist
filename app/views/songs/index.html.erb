@@ -1,0 +1,42 @@
+<div class="row">
+<div class="twelve columns">
+	<h4>All the songs in our hub:</h4>
+	<table>
+		<thead>
+			<tr>
+				<th>Artist</th>
+				<th>Title</th>
+				<th>No. of times song has been added</th>
+				<th>Add to Playlist</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @songs.reverse.each do |e| %>
+				<tr>
+					<td><%=e.artist%></td>
+					<td><a href="/songs/<%= e.id %>"><%=e.title%></a></td>
+					<td><%=e.playlists.count%></td>
+					<td>
+					    <form action='/playlists' method='post' style="display:inline">
+						  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+						  <input type='hidden' name='song_id' value="<%= e.id %>">
+						  <input type='submit' value='Add'>
+						</form>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<h4>Add New Song:</h4>
+	<form action='/songs' method='post' >
+	    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+	    <label>Artist:
+	    	<input type='text' name='song[artist]'>
+	    </label>
+		<label>Title: 
+			<input type="text" name="song[title]">
+		</label>
+	    <input type='submit' class="button-primary" value='Add Song'>
+  	</form>
+</div>
